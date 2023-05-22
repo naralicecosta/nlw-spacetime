@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /*essa propriedade vai preservar os espaçamentos que vão ser editados e não influencias nos tamanhos*/
+}
+::-webkit-scrollbar /*barra de navegação*/ {
+  width: 8px;
+}
+::-webkit-scrollbar-track/*caminho por onde a barra percorre*/ {
+  background-color: #2c2c31;
+}
+::-webkit-scrollbar-thumb/*pedacinho da barra q fica percorrendo*/ {
+  background-color: #9e9ea0;
+}
+@keyframes entering /*definir as etapas da sua animação. Com ela você vai informar o início e o final do valor da propriedade CSS que você deseja animar. Vale lembrar a animação acontece na transição de um valor para o outro.*/ {
+  from {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+body {
+  background-color: #121215;
+  color: #eaeaea;
+
+  font-family: "Roboto", sans-serif;
+
+  display: grid; /*o display grid permite configurar layouts em duas dimensoes (linhas e colunas, a junção de linhas e colunas forma uma grade (grid)*/
+  grid-template-areas: "profile timeline"; /*profile e timeline são duas colunas*/
+  grid-template-columns: 1fr 1fr; /*para cada coluna uma fração, ou seja a página esta sendo dividida em dois igualmente*/
+  grid-template-rows: 100vh; /*definido qual a nossa linha, temos apenas uma linha*/
+}
+nav {
+  padding: 64px;
+  grid-area: timeline; /*definindo qual grid vai aparecer na area nav*/
+
+  overflow-y: scroll; /*apenas a pagina nav vai rolar e nao a aside*/
+  animation: entering 0.7s ease-in-out;
+}
+.memory {
+  display: flex; /*quero que os elementos da página fiquem flexiveis*/
+  flex-direction: column; /*flexiveis, mas abaixo um do outro*/
+  gap: 16px; /*espaçento entre elementos*/
+
+  text-decoration: none; /*tira o underline do link*/
+  margin-bottom: 64px; /*ter um espaço entre um elemento e outro*/
+}
+.memory small {
+  color: #bebebf;
+  font-size: 0.75rem;
+}
+.memory h1 {
+  font-size: 2rem;
+  color: #eaeaea;
+}
+.memory img {
+  width: 100%; /*largura, em % a imagem sempre vai acompanhar a largura da tela*/
+  height: 280px; /*altura*/
+  object-fit: cover; /*mantém a proporção de uma capa, estica e aumenta detro da proporção*/
+  border-radius: 8px; /*arredondamento das bordas*/
+
+  transition: transform 0.3s ease-in-out; /*transição quando o mouse passar por cima da img---ease-in-out é suavidade*/
+}
+.memory div {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.memory:hover img  /*adicionando o efeito de zoom quando clica na imagem*/ {
+  transform: scale(1.1); /*aumentando a imagem ao passar o mouse*/
+}
+.memory p {
+  font-size: 1.2rem;
+  color: #bebebf;
+  line-height: 28px; /*espaçamento de uma linha para outra*/
+}
+aside {
+  grid-area: profile; /*na rea aside o grid vai ser o profile*/
+
+  display: flex; /*para os elementos ficarem um embaixo do outro*/
+  flex-direction: column; /*faz a direção ficar em colunas*/
+  align-items: center; /*elementos centralizados e horizontal*/
+  justify-content: center; /*centro na vertical*/
+  gap: 20px;
+
+  border-right: 1px solid; /*borda do lado direito*/
+  border-image: linear-gradient(#727275, #2c2c31) 1; /*cor da borda*/
+
+  background-image: url("./assets/background.svg");
+  background-position: top right; /*usar como referencia em cima e do lado direito para a imagem acabar*/
+  background-repeat: no-repeat; /*para a imagem nao se repetir*/
+  background-size: auto 100; /*para a imagem se ajustar melhor na tela*/
+}
+aside * {
+  animation: entering 0.7s ease-in-out;
+}
+aside img:nth-child(2) {
+  /*o aside tem duas imagem como elemento filhos, nessa propriedade pegamos apenas o segundo*/
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+
+  /*verificar a imagem redonda*/
+  border: 4px solid transparent;
+  background: linear-gradient(#d39333, #ed5636, #633bbc) padding-box,
+    linear-gradient(260deg, #d39333, #ed5636, #633bbc) border-box;
+}
+aside p {
+  font-size: 2rem;
+  text-align: center;
+}
+aside span {
+  font-size: 0.75rem;
+  color: #9e93a0;
+}
+
+@media (max-width: 780px) {
+  :root {
+    font-size: 14px;
+  }
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 0.8fr;
+    grid-template-areas: "profile" "timeline";
+  }
+  aside {
+    border-right: none;
+    padding: 32px 12px;
+  }
+  nav {
+    overflow-y: visible;
+    padding: 22px;
+  }
+}
